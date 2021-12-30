@@ -1,8 +1,0 @@
-[submodule "tblink-rpc-core"]
-	path = tblink-rpc-core
-	url = https://github.com/tblink-rpc/tblink-rpc-core
-	branch = main
-[submodule "tblink-rpc-hdl"]
-	path = tblink-rpc-hdl
-	url = https://github.com/tblink-rpc/tblink-rpc-hdl
-	branch = main

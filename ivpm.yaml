@@ -1,0 +1,67 @@
+
+package:
+  name: tblink-rpc-docs
+  version: 0.0.1
+  
+  dev-deps:
+    - name: tblink-rpc-core
+      url: https://github.com/tblink-rpc/tblink-rpc-core.git
+    - name: tblink-rpc-hdl
+      url: https://github.com/tblink-rpc/tblink-rpc-hdl.git
+    - name: Sphinx
+      src: pypi
+    - name: sphinx-rtd-theme
+      src: pypi
+    - name: cairosvg
+      src: pypi
+    - name: breathe
+      src: pypi
+    - name: mistune
+      src: pypi
+      version: <2.0.0
+    - name: sphinxcontrib-makedomain
+      src: pypi
+    - name: sphinxcontrib-openapi
+      src: pypi
+    - name: sphinxcontrib-spelling
+      src: pypi
+    - name: sphinx-issues
+      src: pypi
+    - name: sphinx-argparse
+      src: pypi
+    - name: pyenchant
+      src: pypi
+    - name: jinja2
+      src: pypi
+
+  deps:
+    - name: tblink-rpc-core
+      url: https://github.com/tblink-rpc/tblink-rpc-core.git
+    - name: tblink-rpc-hdl
+      url: https://github.com/tblink-rpc/tblink-rpc-hdl.git
+    - name: Sphinx
+      src: pypi
+    - name: sphinx-rtd-theme
+      src: pypi
+    - name: cairosvg
+      src: pypi
+    - name: breathe
+      src: pypi
+    - name: mistune
+      src: pypi
+      version: <2.0.0
+    - name: sphinxcontrib-makedomain
+      src: pypi
+    - name: sphinxcontrib-openapi
+      src: pypi
+    - name: sphinxcontrib-spelling
+      src: pypi
+    - name: sphinx-issues
+      src: pypi
+    - name: sphinx-argparse
+      src: pypi
+    - name: pyenchant
+      src: pypi
+    - name: jinja2
+      src: pypi
+    

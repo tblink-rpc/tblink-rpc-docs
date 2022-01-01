@@ -8,6 +8,8 @@ package:
       url: https://github.com/tblink-rpc/tblink-rpc-core.git
     - name: tblink-rpc-hdl
       url: https://github.com/tblink-rpc/tblink-rpc-hdl.git
+    - name: sv-doxygen-filter
+      url: https://github.com/SeanOBoyle/DoxygenFilterSystemVerilog.git
     - name: Sphinx
       src: pypi
     - name: sphinx-rtd-theme
@@ -39,6 +41,8 @@ package:
       url: https://github.com/tblink-rpc/tblink-rpc-core.git
     - name: tblink-rpc-hdl
       url: https://github.com/tblink-rpc/tblink-rpc-hdl.git
+    - name: sv-doxygen-filter
+      url: https://github.com/SeanOBoyle/DoxygenFilterSystemVerilog.git
     - name: Sphinx
       src: pypi
     - name: sphinx-rtd-theme

@@ -23,7 +23,11 @@ environment.
    :caption: Contents:
 
 .. doxygenclass:: tblink_rpc_core::IEndpoint
-   :project: tblink_rpc
+   :project: tblink_rpc_cpp
+   :members:
+
+.. doxygenclass:: tblink_rpc::IEndpoint
+   :project: tblink_rpc_sv
    :members:
 
 

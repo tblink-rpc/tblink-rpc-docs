@@ -47,13 +47,20 @@ extensions = [
 ]
 
 
-if "DOXYDOCS_DIR" in os.environ.keys():
-    doxydocs_dir=os.environ["DOXYDOCS_DIR"]
+if "DOXYDOCS_DIR_CPP" in os.environ.keys():
+    doxydocs_dir_cpp=os.environ["DOXYDOCS_DIR_CPP"]
 else:
-    doxtdocs_dir="../doxydocs"
+    doxtdocs_dir_cpp="../doxydocs_cpp"
 
-breathe_projects = { "tblink_rpc": os.path.join(doxydocs_dir, "xml") }
-breathe_default_project = "tblink_rpc"
+if "DOXYDOCS_DIR_SV" in os.environ.keys():
+    doxydocs_dir_sv=os.environ["DOXYDOCS_DIR_SV"]
+else:
+    doxtdocs_dir_sv="../doxydocs_sv"
+
+breathe_projects = { "tblink_rpc_cpp": os.path.join(doxydocs_dir_cpp, "xml"), 
+                    "tblink_rpc_sv": os.path.join(doxydocs_dir_sv, "xml") 
+                    }
+breathe_default_project = "tblink_rpc_cpp"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

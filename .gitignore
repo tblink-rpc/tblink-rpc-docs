@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 packages/
+doxydocs_*/

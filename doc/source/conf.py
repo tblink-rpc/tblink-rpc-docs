@@ -10,8 +10,8 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+import os
+import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
 
@@ -46,8 +46,21 @@ extensions = [
     'sphinxcontrib.openapi'
 ]
 
-breathe_projects = { "tblink_rpc": "../doxydocs/xml/" }
-breathe_default_project = "tblink_rpc"
+
+if "DOXYDOCS_DIR_CPP" in os.environ.keys():
+    doxydocs_dir_cpp=os.environ["DOXYDOCS_DIR_CPP"]
+else:
+    doxtdocs_dir_cpp="../doxydocs_cpp"
+
+if "DOXYDOCS_DIR_SV" in os.environ.keys():
+    doxydocs_dir_sv=os.environ["DOXYDOCS_DIR_SV"]
+else:
+    doxtdocs_dir_sv="../doxydocs_sv"
+
+breathe_projects = { "tblink_rpc_cpp": os.path.join(doxydocs_dir_cpp, "xml"), 
+                    "tblink_rpc_sv": os.path.join(doxydocs_dir_sv, "xml") 
+                    }
+breathe_default_project = "tblink_rpc_cpp"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

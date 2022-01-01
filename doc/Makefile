@@ -6,7 +6,9 @@
 # in RTD builds as Python code into the conf.py file.
 
 DOC_DIR:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+ifeq (,$(PACKAGES_DIR))
 PACKAGES_DIR:=$(abspath $(DOC_DIR)/../packages)
+endif
 
 # You can set these variables from the command line.
 SPHINXOPTS    =

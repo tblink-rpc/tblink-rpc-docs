@@ -6,6 +6,13 @@ endif
 
 export PACKAGES_DIR
 
+pdf : doxydocs_cpp doxydocs_sv
+	DOXYDOCS_DIR_CPP=`pwd`/doxydocs_cpp \
+	DOXYDOCS_DIR_SV=`pwd`/doxydocs_sv \
+		$(PACKAGES_DIR)/python/bin/sphinx-build -M latexpdf \
+			$(TBLINK_RPC_DOCS_DIR)/doc/source \
+			build
+
 html : doxydocs_cpp doxydocs_sv
 	DOXYDOCS_DIR_CPP=`pwd`/doxydocs_cpp \
 	DOXYDOCS_DIR_SV=`pwd`/doxydocs_sv \

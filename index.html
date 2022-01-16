@@ -40,6 +40,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">TbLink RPC Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_user_facade_py.html">Reference: Python User Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_core_cpp.html">Reference: TbLink C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_core_sv.html">Reference: TbLink SystemVerilog API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_core_vpi.html">Reference TbLink VPI API</a></li>
 </ul>
 
         </div>
@@ -83,58 +87,12 @@ environment.</p>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#implementation-model">Implementation Model</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="reference_user_facade_py.html">Reference: Python User Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_core_cpp.html">Reference: TbLink C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_core_sv.html">Reference: TbLink SystemVerilog API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_core_vpi.html">Reference TbLink VPI API</a></li>
 </ul>
 </div>
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv4N15tblink_rpc_core9IEndpointE">
-<span id="_CPPv3N15tblink_rpc_core9IEndpointE"></span><span id="_CPPv2N15tblink_rpc_core9IEndpointE"></span><span id="tblink_rpc_core::IEndpoint"></span><span class="target" id="classtblink__rpc__core_1_1IEndpoint"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">tblink_rpc_core</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IEndpoint</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">tblink_rpc_core</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IParamValFactory</span></span><a class="headerlink" href="#_CPPv4N15tblink_rpc_core9IEndpointE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Subclassed by tblink_rpc_core::EndpointBase, tblink_rpc_core::EndpointMsgBase</p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N15tblink_rpc_core9IEndpoint15notify_callbackE8intptr_t">
-<span id="_CPPv3N15tblink_rpc_core9IEndpoint15notify_callbackE8intptr_t"></span><span id="_CPPv2N15tblink_rpc_core9IEndpoint15notify_callbackE8intptr_t"></span><span id="tblink_rpc_core::IEndpoint::notify_callback__intptr_t"></span><span class="target" id="classtblink__rpc__core_1_1IEndpoint_1ac4c0ac9c0c4e3ded1975dd2306d793ef"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">notify_callback</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">intptr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N15tblink_rpc_core9IEndpoint15notify_callbackE8intptr_t" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Called by the environment to notify that a callback has occurred </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N15tblink_rpc_core9IEndpoint19process_one_messageEv">
-<span id="_CPPv3N15tblink_rpc_core9IEndpoint19process_one_messageEv"></span><span id="_CPPv2N15tblink_rpc_core9IEndpoint19process_one_messageEv"></span><span id="tblink_rpc_core::IEndpoint::process_one_message"></span><span class="target" id="classtblink__rpc__core_1_1IEndpoint_1a719ba9218d5b663e6b7cfb04c07e3ede"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">process_one_message</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N15tblink_rpc_core9IEndpoint19process_one_messageEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Poll, waiting for a message to be received. Returns -1 on transport error. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N15tblink_rpc_core9IEndpoint21getPeerInterfaceTypesEv">
-<span id="_CPPv3N15tblink_rpc_core9IEndpoint21getPeerInterfaceTypesEv"></span><span id="_CPPv2N15tblink_rpc_core9IEndpoint21getPeerInterfaceTypesEv"></span><span id="tblink_rpc_core::IEndpoint::getPeerInterfaceTypes"></span><span class="target" id="classtblink__rpc__core_1_1IEndpoint_1acdfbe6669482adefb330c0debaed396c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IInterfaceType</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getPeerInterfaceTypes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N15tblink_rpc_core9IEndpoint21getPeerInterfaceTypesEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Returns the available interface types registered by the endpoint peer. Only valid after ‘build’ is complete </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N15tblink_rpc_core9IEndpoint21getPeerInterfaceInstsEv">
-<span id="_CPPv3N15tblink_rpc_core9IEndpoint21getPeerInterfaceInstsEv"></span><span id="_CPPv2N15tblink_rpc_core9IEndpoint21getPeerInterfaceInstsEv"></span><span id="tblink_rpc_core::IEndpoint::getPeerInterfaceInsts"></span><span class="target" id="classtblink__rpc__core_1_1IEndpoint_1acfc7d04d6c6de44ad0e78903092cd5d8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IInterfaceInst</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getPeerInterfaceInsts</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N15tblink_rpc_core9IEndpoint21getPeerInterfaceInstsEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Returns the available interface instances registered by the endpoint peer. Only valid after ‘build’ is complete </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv4N10tblink_rpc9IEndpointE">
-<span id="_CPPv3N10tblink_rpc9IEndpointE"></span><span id="_CPPv2N10tblink_rpc9IEndpointE"></span><span id="tblink_rpc::IEndpoint"></span><span class="target" id="classtblink__rpc_1_1IEndpoint"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">tblink_rpc</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IEndpoint</span></span></span><a class="headerlink" href="#_CPPv4N10tblink_rpc9IEndpointE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Class: <a class="reference internal" href="#classtblink__rpc_1_1IEndpoint"><span class="std std-ref">IEndpoint</span></a></p>
-<p>TODO: Add class documentation </p>
-<p>Subclassed by tblink_rpc::DpiEndpoint, tblink_rpc::SVEndpoint, tblink_rpc::SVEndpointLoopback</p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10tblink_rpc9IEndpoint19process_one_messageEv">
-<span id="_CPPv3N10tblink_rpc9IEndpoint19process_one_messageEv"></span><span id="_CPPv2N10tblink_rpc9IEndpoint19process_one_messageEv"></span><span id="tblink_rpc::IEndpoint::process_one_message"></span><span class="target" id="classtblink__rpc_1_1IEndpoint_1a9484f278aba51b0ef8de9f0ab8f56624"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">process_one_message</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10tblink_rpc9IEndpoint19process_one_messageEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Process a message, returning -1 on error </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>

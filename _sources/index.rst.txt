@@ -23,14 +23,12 @@ environment.
    :caption: Contents:
    
    architecture
+   reference_user_facade_py
+   reference_core_cpp
+   reference_core_sv
+   reference_core_vpi
    
-.. doxygenclass:: tblink_rpc_core::IEndpoint
-   :project: tblink_rpc_cpp
-   :members:
 
-.. doxygenclass:: tblink_rpc::IEndpoint
-   :project: tblink_rpc_sv
-   :members:
 
 
 Indices and tables

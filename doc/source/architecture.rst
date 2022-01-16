@@ -105,8 +105,80 @@ is complete.
 Implementation Model
 ====================
 
-- User Facade
-  - Tied to a specific environment and its concept of concurrency
+Implementation of TbLink RPC is split into two major components:
+user facades and core implementation. As the name suggests, the
+user facade is the primary aspect of interest to end users. 
+The implementation core is primarily of interest to developers
+wishing to extend TbLink RPC to support another front-end 
+language and/or simulator integration.
+
+User Facade
+-----------
+Every language and language methodology used for functional
+verification and with simulation models time and events 
+in some form. In standard fashion, different languages and
+methodologies represent these same concepts in different ways. 
+For example, SystemVerilog represents time-consuming methods
+as *tasks* and language constructs for modeling events, while 
+Python represents the same concept using *async* methods and
+classes in the standard library. 
+
+The purpose of language- and methodology-specific facades is 
+to adapt TbLink RPC to the appropriate language- and 
+methodology-specific constructs. 
+
+The adaptation can go far beyond just adapting TbLink RPC to
+threading and event constructs supported by the target
+environment. For example, Python provides rich introspection
+and annotation capabilities that enable the user to 
+capture meta-data for TbLink RPC directly in Python instead
+of in a separate side file. 
+
+.. code:: python3
+
+  import tblink_rpc
+  import ctypes
+
+  @tblink_rpc.iftype("rv_bfms.initiator")
+  class RvInitiatorBfm(object):
+
+      @tblink_rpc.exptask
+      async def req(self, data : ctypes.c_uint64):
+          pass
+
+      @tblink_rpc.impfunc
+      def rsp(self):
+          pass
+
+
+The code snippet above shows interface-type information 
+captured as annotations on the Python class that implements
+an interface instance. Other environments may have similar
+environment- or language-specific mechanisms that provide
+enhanced capabilities when TbLink RPC is used with that
+environment.
+
+Core Implementation
+-------------------
+
+The User Facade layer is characterized by differences. It's goal is 
+to provide the best user experience possible based on the target
+environment. In contrast, the Core Implementation layer is 
+characterized by similarity. In nearly all cases, the 
+Core Implementation layer for different languages and environments
+have identical APIs, or very nearly identical APIs.
+
+In many cases, this similarity is very important because of 
+cross-language reuse of the Core Implementation layer. For example,
+when a SystemVerilog is connected via a socket to an executable 
+running as a separate process, the SystemVerilog Core Implementation
+layer uses the C++ Core Implementation layer to implement 
+process management and socket communication.
+
+With that, let's dive into the key objects in the Core Implementation
+layer.
+
+
 - Core
   - Event-driven and non-blocking
 

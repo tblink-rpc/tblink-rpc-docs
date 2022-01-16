@@ -21,7 +21,9 @@ environment.
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
+   architecture
+   
 .. doxygenclass:: tblink_rpc_core::IEndpoint
    :project: tblink_rpc_cpp
    :members:

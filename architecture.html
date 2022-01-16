@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TbLink RPC Architecture &mdash; TbLink RPC  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to TbLink RPC’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> TbLink RPC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TbLink RPC Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#concept-model">Concept Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#environments-and-endpoints">Environments and Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods-interfaces-and-interface-types">Methods, Interfaces, and Interface Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-model">Implementation Model</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TbLink RPC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>TbLink RPC Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tblink-rpc-architecture">
+<h1>TbLink RPC Architecture<a class="headerlink" href="#tblink-rpc-architecture" title="Permalink to this headline"></a></h1>
+<p>Due to the requirements for flexibility and scalability, TbLink RPC
+uses a layered architecture. It’s reasonable to think of this
+layered architecture as being similar to a network stack.</p>
+<section id="concept-model">
+<h2>Concept Model<a class="headerlink" href="#concept-model" title="Permalink to this headline"></a></h2>
+<p>Let’s start with some key concepts that are used across the document.
+There is implementation behind these concepts, but it’s useful to
+understand their purpose at a high level before diving into the details.</p>
+<img alt="_images/concept_diagram.png" src="_images/concept_diagram.png" />
+<section id="environments-and-endpoints">
+<h3>Environments and Endpoints<a class="headerlink" href="#environments-and-endpoints" title="Permalink to this headline"></a></h3>
+<p>TbLink RPC exists to allow simulation-centric environments to
+communicate. Each pair of communicating environments has a
+pair of connected endpoints. An environment may communicate
+with multiple other environments, but each pair of connected
+environments may only be connected by a single pair of
+TbLink RPC endpoints.</p>
+<p>One result of TbLink RPC being simulation-centric is the
+requirement to  synchronize and control time. For example, when
+one environment is a simulator and the other is a testbench,
+it is critical to ensure that the simulation advances only
+once the testbench has responded to all pending simulation
+events. If this requirement isn’t met, our ability to properly
+interact with the design under test (DUT) will be impaired.</p>
+<p>TbLink RPC is not a simulator co-simulation framework, with
+support for synchronizing the operation of multiple simulators
+each with their own notion of time. Consequently, one
+environment is considered the <em>Timebase Provider</em>. The
+<em>Timebase Provider</em> environment maintains the current time
+for all environments, and provides support for time-based
+callbacks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TbLink RPC doesn’t enforce the restriction on having only
+a single Timebase Provider. This restriction is simply
+a pragmatic one, given the implementation of capabilities
+of most simultors today.</p>
+</div>
+</section>
+<section id="methods-interfaces-and-interface-types">
+<h3>Methods, Interfaces, and Interface Types<a class="headerlink" href="#methods-interfaces-and-interface-types" title="Permalink to this headline"></a></h3>
+<img alt="_images/iftype_ifinst_mirror.png" src="_images/iftype_ifinst_mirror.png" />
+<p>TbLink RPC environments communicate via method calls. Method
+calls are made with respect to <em>interface instances</em>. Each
+<em>interface instance</em> has an <em>interface type</em>, which captures
+which methods are available.</p>
+<p>An interface type specifies type and usage information about
+methods. Specifically, it captures:</p>
+<ul class="simple">
+<li><p>The return type of the method</p></li>
+<li><p>Method parameter names and types</p></li>
+<li><p>Whether the method is time-consuming</p></li>
+<li><p>Whether the method is an <em>export</em> or an <em>import</em>.</p></li>
+</ul>
+<p>This last bit – export vs import – is of critical importance.
+An imported method is called by the environment, while an
+exported method is implemented by the environment and called
+by TbLink RPC in response to a call from the peer environment.</p>
+<p>Both connected interface instances have the same interface type.
+However, one is designated a <em>mirror</em> interface. A <em>mirror</em>
+interface implements the “mirror” of methods, so an export
+method is implemented as an import on a <em>mirror</em> interface, and
+an import method is implemented as an export.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The terminology of import, export, and mirror comes from the
+vocabulary of Transaction-Level Modeling and IP-XACT IP
+encapsulation.</p>
+</div>
+<p>When defining an interface type, whether a method itself is an
+import or an export is entirely irrelevant. For example, the
+interface type above could have been defined with <em>Req</em> being
+an import and <em>Rsp</em> being an export. The practical impact of
+this decision would be that the right-hand interface instance
+would need to be specified as a mirror and the left-hand
+interface instance would need to be specified as a non-mirror
+in order to preserve the caller/called relationship.</p>
+<p>Methods may be denoted as either time-consuming or non-time-consuming.
+This is a critical distinction precisely because TbLink RPC is targeted
+at enabling communication with simulation environments. When
+non-time-consuming methods are called, TbLink RPC understands that
+time in the simulation environment must not advance. When time-consuming
+methods are called, TbLink RPC understands that it may be necessary for
+time in the simulation environment to advance before the method call
+is complete.</p>
+</section>
+</section>
+<section id="implementation-model">
+<h2>Implementation Model<a class="headerlink" href="#implementation-model" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>User Facade
+- Tied to a specific environment and its concept of concurrency</p></li>
+<li><p>Core
+- Event-driven and non-blocking</p></li>
+<li><p>Endpoint (API)</p></li>
+<li><p>Endpoint Transport</p></li>
+<li><p>Endpoint Launcher</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to TbLink RPC’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Matthew Ballance.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

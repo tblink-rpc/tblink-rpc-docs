@@ -49,6 +49,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation-model">Implementation Model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#user-facade">User Facade</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#core-implementation">Core Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-integration">Environment Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#use-cases-application-examples">Use-Cases / Application Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-driven-uvm-sequence">Python-Driven UVM Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systemverilog-co-simulation-with-c-c-software-behavior">SystemVerilog Co-Simulation with C/C++ Software Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-driving-a-silicon-platform">Python Driving a Silicon Platform</a></li>
 </ul>
 </li>
 </ul>
@@ -174,12 +181,22 @@ is complete.</p>
 </section>
 <section id="implementation-model">
 <h2>Implementation Model<a class="headerlink" href="#implementation-model" title="Permalink to this headline"></a></h2>
-<p>Implementation of TbLink RPC is split into two major components:
-user facades and core implementation. As the name suggests, the
-user facade is the primary aspect of interest to end users.
-The implementation core is primarily of interest to developers
+<p>Implementation of TbLink RPC is split into three major components:</p>
+<ul class="simple">
+<li><p>User Facades</p></li>
+<li><p>Core Implementation</p></li>
+<li><p>Environment Integration</p></li>
+</ul>
+<p>As the name suggests, the user facade is the primary aspect of
+interest to end users.</p>
+<p>The implementation core is primarily of interest to developers
 wishing to extend TbLink RPC to support another front-end
-language and/or simulator integration.</p>
+language and/or simulator integration. Core Implementation must
+support all user facades and environment integrations.</p>
+<p>Environment integration is responsible for handling
+environment-specific details. For example, propagating events
+properly in Verilog via the VPI API. Generally, environment
+integration is the smallest body of code in TbLink RPC.</p>
 <section id="user-facade">
 <h3>User Facade<a class="headerlink" href="#user-facade" title="Permalink to this headline"></a></h3>
 <p>Every language and language methodology used for functional
@@ -237,13 +254,76 @@ layer uses the C++ Core Implementation layer to implement
 process management and socket communication.</p>
 <p>With that, let’s dive into the key objects in the Core Implementation
 layer.</p>
+</section>
+<section id="environment-integration">
+<h3>Environment Integration<a class="headerlink" href="#environment-integration" title="Permalink to this headline"></a></h3>
+<p>Nearly every environment requires some amount of integration
+code to be able to access TbLink functionality. In many cases, this
+code exists to access the C++ implementation of TbLink. In the
+case of most simulation environments, some amount of code exists
+to trigger events in the simulation environment. The goal is for
+this environment-specific code to be as light-weight as possible.</p>
+<p>Current environment integrations include:</p>
 <ul class="simple">
+<li><p>SystemVerilog simulation (DPI)</p></li>
+<li><p>Verilog simuilation (VPI)</p></li>
+<li><p>Python (Cython/C++ binding)</p></li>
+<li><p>Gateware for Silicon targets (byte-oriented interface)</p></li>
 <li><p>Core
 - Event-driven and non-blocking</p></li>
 <li><p>Endpoint (API)</p></li>
 <li><p>Endpoint Transport</p></li>
 <li><p>Endpoint Launcher</p></li>
 </ul>
+</section>
+</section>
+<section id="use-cases-application-examples">
+<h2>Use-Cases / Application Examples<a class="headerlink" href="#use-cases-application-examples" title="Permalink to this headline"></a></h2>
+<p>Here are a few examples of TbLink RPC applications.</p>
+<section id="python-driven-uvm-sequence">
+<h3>Python-Driven UVM Sequence<a class="headerlink" href="#python-driven-uvm-sequence" title="Permalink to this headline"></a></h3>
+<img alt="_images/usecase_python_uvm_sequence.png" src="_images/usecase_python_uvm_sequence.png" />
+<p>It is often attractive to use Python for capturing tests
+because of the flexibility and familiarity of the language,
+and because of access to Python libraries for algorithmic
+stimulus generation. However, an existing SystemVerilog/UVM
+testbench typically contains extensive infrastructure, such
+as bus functional models (BFMs) and/or verification IP (VIP),
+a register model, and utility sequences for performing
+standard operations on the design under test.</p>
+<p>Leveraging all of this existing infrastructure is highly
+desirable. In order to do so, we effectively need some
+Python code to run in the context of the UVM
+virtual sequence running in the SystemVerilog environment.</p>
+<p>The two key TbLink RPC capabilities exercised in this
+application example are:</p>
+<ul class="simple">
+<li><p>Support for dynamically creating interface instances
+and passing them between environments.</p></li>
+<li><p>Making multiple blocking calls between environments.</p></li>
+</ul>
+<p>The key steps in this example are as follows:</p>
+<ul class="simple">
+<li><p>The Python environment creates a TbLink RPC
+<em>interface instance</em> that corresponds to the UVM
+virtual sequence.</p></li>
+<li><p>The Python environment passes this <em>interface instance</em>
+to a method in the SystemVerilog testbench environment,
+where handles to agents and register model are populated,
+and that starts the UVM sequence.</p></li>
+<li><p>When the UVM testbench calls the sequence <em>body</em> task,
+the body task is invoked in the Python environment.</p></li>
+<li><p>The Python <em>body</em> method can now drive behavior in the
+UVM testbench by calling utility methods in the virtual
+sequence.</p></li>
+</ul>
+</section>
+<section id="systemverilog-co-simulation-with-c-c-software-behavior">
+<h3>SystemVerilog Co-Simulation with C/C++ Software Behavior<a class="headerlink" href="#systemverilog-co-simulation-with-c-c-software-behavior" title="Permalink to this headline"></a></h3>
+</section>
+<section id="python-driving-a-silicon-platform">
+<h3>Python Driving a Silicon Platform<a class="headerlink" href="#python-driving-a-silicon-platform" title="Permalink to this headline"></a></h3>
+<img alt="_images/usecase_silicon_platform.png" src="_images/usecase_silicon_platform.png" />
 </section>
 </section>
 </section>

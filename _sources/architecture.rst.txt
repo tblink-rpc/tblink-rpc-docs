@@ -105,12 +105,24 @@ is complete.
 Implementation Model
 ====================
 
-Implementation of TbLink RPC is split into two major components:
-user facades and core implementation. As the name suggests, the
-user facade is the primary aspect of interest to end users. 
+Implementation of TbLink RPC is split into three major components:
+
+- User Facades
+- Core Implementation
+- Environment Integration
+
+As the name suggests, the user facade is the primary aspect of 
+interest to end users. 
+
 The implementation core is primarily of interest to developers
 wishing to extend TbLink RPC to support another front-end 
-language and/or simulator integration.
+language and/or simulator integration. Core Implementation must
+support all user facades and environment integrations.
+
+Environment integration is responsible for handling 
+environment-specific details. For example, propagating events
+properly in Verilog via the VPI API. Generally, environment 
+integration is the smallest body of code in TbLink RPC.
 
 User Facade
 -----------
@@ -178,6 +190,22 @@ process management and socket communication.
 With that, let's dive into the key objects in the Core Implementation
 layer.
 
+Environment Integration
+-----------------------
+
+Nearly every environment requires some amount of integration
+code to be able to access TbLink functionality. In many cases, this
+code exists to access the C++ implementation of TbLink. In the
+case of most simulation environments, some amount of code exists
+to trigger events in the simulation environment. The goal is for 
+this environment-specific code to be as light-weight as possible.
+
+Current environment integrations include:
+
+- SystemVerilog simulation (DPI)
+- Verilog simuilation (VPI)
+- Python (Cython/C++ binding)
+- Gateware for Silicon targets (byte-oriented interface)
 
 - Core
   - Event-driven and non-blocking
@@ -185,4 +213,62 @@ layer.
 - Endpoint (API)
 - Endpoint Transport
 - Endpoint Launcher
+
+Use-Cases / Application Examples
+================================
+
+Here are a few examples of TbLink RPC applications.
+
+Python-Driven UVM Sequence
+--------------------------
+
+.. image:: imgs/usecase_python_uvm_sequence.png
+
+It is often attractive to use Python for capturing tests
+because of the flexibility and familiarity of the language, 
+and because of access to Python libraries for algorithmic
+stimulus generation. However, an existing SystemVerilog/UVM 
+testbench typically contains extensive infrastructure, such
+as bus functional models (BFMs) and/or verification IP (VIP),
+a register model, and utility sequences for performing
+standard operations on the design under test. 
+
+Leveraging all of this existing infrastructure is highly
+desirable. In order to do so, we effectively need some 
+Python code to run in the context of the UVM 
+virtual sequence running in the SystemVerilog environment.
+
+The two key TbLink RPC capabilities exercised in this 
+application example are:
+
+- Support for dynamically creating interface instances
+  and passing them between environments.
+- Making multiple blocking calls between environments.
+
+The key steps in this example are as follows:
+
+- The Python environment creates a TbLink RPC 
+  *interface instance* that corresponds to the UVM 
+  virtual sequence. 
+- The Python environment passes this *interface instance*
+  to a method in the SystemVerilog testbench environment, 
+  where handles to agents and register model are populated, 
+  and that starts the UVM sequence.
+- When the UVM testbench calls the sequence *body* task,
+  the body task is invoked in the Python environment. 
+- The Python *body* method can now drive behavior in the
+  UVM testbench by calling utility methods in the virtual
+  sequence.
+
+
+
+SystemVerilog Co-Simulation with C/C++ Software Behavior
+--------------------------------------------------------
+
+
+Python Driving a Silicon Platform
+---------------------------------
+
+.. image:: imgs/usecase_silicon_platform.png
+
 

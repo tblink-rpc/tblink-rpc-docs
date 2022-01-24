@@ -39,7 +39,13 @@ creating simulation extensions that interact with a HDL simulation
 at the procedure-call level. There are three primary outcomes
 that TbLink RPC targets:
 
-
+- Simplify object-oriented RPC between object-oriented testbench 
+  and simulation environments
+- Separate simulator support from application integration 
+  enabling, for example, integrating a new testbench language 
+  without needing to add new simulator integrations
+- Common procedural abstraction layer with support for commercial
+  and open source simulation environments.
 
 
 

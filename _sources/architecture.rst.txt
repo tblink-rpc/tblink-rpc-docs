@@ -265,10 +265,29 @@ The key steps in this example are as follows:
 SystemVerilog Co-Simulation with C/C++ Software Behavior
 --------------------------------------------------------
 
+.. image:: imgs/usecase_zephyr_integration.png
+
+Bringing some aspects of software behavior into an IP-level
+environment enables firmware to be developed during the IP
+design and verification effort. One way of doing this is
+to native-compile the `Zephyr RTOS <https://www.zephyrproject.org>`_ 
+real-time operating system and co-simulate its software
+behavior with the testbench and design. The 
+`Zephyr-Cosim <https://github.com/zephyr-dv/zephyr-cosim>`_ project
+provides integration code and uses TbLink-RPC to connect
+a compiled Zephyr application to a simulation environment.
 
 Python Driving a Silicon Platform
 ---------------------------------
 
 .. image:: imgs/usecase_silicon_platform.png
+
+Validation efforts continue past simulation onto silicon 
+platforms. It is highly beneficial to be able to leverage
+some aspects of the pre-silicon verification environment
+in the post-silicon world. A combination of TbLink-RPC,
+interface code generation, and BFMs/transactors enable
+a carefully-selected subset of the verification environment
+to be reused from verification to validation.
 
 

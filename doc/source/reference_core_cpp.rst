@@ -1,5 +1,5 @@
 *************************
-Reference: TbLink C++ API
+C++ Core API
 *************************
 
 .. doxygenclass:: tblink_rpc_core::IEndpoint

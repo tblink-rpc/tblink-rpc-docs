@@ -1,6 +1,6 @@
-***********************
-TbLink RPC Architecture
-***********************
+************
+Architecture
+************
 
 Due to the requirements for flexibility and scalability, TbLink RPC
 uses a layered architecture. It's reasonable to think of this 

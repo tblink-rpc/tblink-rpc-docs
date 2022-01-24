@@ -33,8 +33,8 @@ doxydocs_sv :
 		< tblink_rpc_sv_tmp/tblink_rpc_pkg_1.sv \
 		> tblink_rpc_sv_tmp/tblink_rpc_pkg.cpp
 	doxygen $(TBLINK_RPC_DOCS_DIR)/doc/TbLinkRpcSv.conf
-	rm -rf tblink_rpc_sv_tmp
+#	rm -rf tblink_rpc_sv_tmp
 
 clean :
-	rm -rf build
+	rm -rf build doxydocs_cpp doxydocs_sv
 

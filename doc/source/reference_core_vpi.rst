@@ -1,4 +1,4 @@
 ************************
-Reference TbLink VPI API
+VPI Core API
 ************************
 

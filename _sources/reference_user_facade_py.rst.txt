@@ -1,3 +1,3 @@
 *****************************
-Reference: Python User Facade
+Python User Facade
 *****************************

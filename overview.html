@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Python User Facade &mdash; TbLink RPC  documentation</title>
+  <title>Overview &mdash; TbLink RPC  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="C++ Core API" href="reference_core_cpp.html" />
-    <link rel="prev" title="Reference" href="reference.html" /> 
+    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="Welcome to TbLink RPC’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,15 +40,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Python User Facade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_core_cpp.html">C++ Core API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_core_sv.html">SystemVerilog Core API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_core_vpi.html">VPI Core API</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
 </ul>
 
         </div>
@@ -65,10 +59,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="reference.html">Reference</a> &raquo;</li>
-      <li>Python User Facade</li>
+      <li>Overview</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/reference_user_facade_py.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,16 +69,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="python-user-facade">
-<h1>Python User Facade<a class="headerlink" href="#python-user-facade" title="Permalink to this headline"></a></h1>
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h1>
+<p>Digital simulation has always relied on being able to integrate external
+models. In the days before SystemVerilog, the testbench environment
+for a Verilog or VHDL design was nearly always external to the
+design. It might be implemented in C/C++, one of the purpose-built
+verification languages, or maybe even Java. With a VHDL or Verilog
+simulation, external models nearly always integrated at the signal level.</p>
+<p>With the introduction of SystemVerilog, external models gained new
+integration capabilities with the introduction of the SystemVerilog
+Direct Procedural Interface (DPI). Interacting with the design
+at the signal level from an external model was still possible, but
+increasingly unneeded and undesirable. The testbench portion of the
+SystemVerilog language made it easier to specify signal-level
+interactions between the testbench and design directly in SystemVerilog.
+New performance optimizations introduced by simulator vendors often
+worked only for design regions that were inaccessible to the older
+signal-level APIs.</p>
+<p>SystemVerilog enables the testbench to move directly into the simulator,
+but external models are still important. Reference models, used for
+checking, are often implemented in C++. External stimulus models,
+such as virtual platform simulators (eg QEMU) are implemented as
+standalone tools. Integrating these external models can certainly
+be done using the SystemVerilog DPI, but require a significant
+amount of design, development, and maintenance effort
+for each integration.</p>
+<p>Due to API differences across simulators (SystemVerilog vs Verilog
+vs SystemC vs silicon), a different integration must be constructed
+for each supported simulation environment.</p>
+<p>TbLink RPC (Testbench Link Remote Procedure Call) is a set of
+libraries and automation scripts with the goal of simplifying
+creating simulation extensions that interact with a HDL simulation
+at the procedure-call level. There are three primary outcomes
+that TbLink RPC targets:</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="reference.html" class="btn btn-neutral float-left" title="Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reference_core_cpp.html" class="btn btn-neutral float-right" title="C++ Core API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to TbLink RPC’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

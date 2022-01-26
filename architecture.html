@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="next" title="Interaction Protocol" href="interaction_protocol.html" />
     <link rel="prev" title="Overview" href="overview.html" /> 
 </head>
 
@@ -51,16 +51,19 @@
 <li class="toctree-l3"><a class="reference internal" href="#user-facade">User Facade</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#core-implementation">Core Implementation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#environment-integration">Environment Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automation">Automation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#use-cases-application-examples">Use-Cases / Application Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#python-driven-uvm-sequence">Python-Driven UVM Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-driven-uvm-sequence-execution">Python-Driven UVM Sequence Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uvm-sequence-implemented-in-python">UVM Sequence Implemented in Python</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#systemverilog-co-simulation-with-c-c-software-behavior">SystemVerilog Co-Simulation with C/C++ Software Behavior</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-driving-a-silicon-platform">Python Driving a Silicon Platform</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="interaction_protocol.html">Interaction Protocol</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
 </ul>
 
@@ -267,19 +270,19 @@ this environment-specific code to be as light-weight as possible.</p>
 <li><p>Verilog simuilation (VPI)</p></li>
 <li><p>Python (Cython/C++ binding)</p></li>
 <li><p>Gateware for Silicon targets (byte-oriented interface)</p></li>
-<li><p>Core
-- Event-driven and non-blocking</p></li>
-<li><p>Endpoint (API)</p></li>
-<li><p>Endpoint Transport</p></li>
-<li><p>Endpoint Launcher</p></li>
 </ul>
+</section>
+<section id="automation">
+<h3>Automation<a class="headerlink" href="#automation" title="Permalink to this headline"></a></h3>
+<p>A key aspect of the TbLink-RPC approach is automation to generate
+boilerplate implementation code from</p>
 </section>
 </section>
 <section id="use-cases-application-examples">
 <h2>Use-Cases / Application Examples<a class="headerlink" href="#use-cases-application-examples" title="Permalink to this headline"></a></h2>
 <p>Here are a few examples of TbLink RPC applications.</p>
-<section id="python-driven-uvm-sequence">
-<h3>Python-Driven UVM Sequence<a class="headerlink" href="#python-driven-uvm-sequence" title="Permalink to this headline"></a></h3>
+<section id="python-driven-uvm-sequence-execution">
+<h3>Python-Driven UVM Sequence Execution<a class="headerlink" href="#python-driven-uvm-sequence-execution" title="Permalink to this headline"></a></h3>
 <img alt="_images/usecase_python_uvm_sequence.png" src="_images/usecase_python_uvm_sequence.png" />
 <p>It is often attractive to use Python for capturing tests
 because of the flexibility and familiarity of the language,
@@ -316,6 +319,19 @@ UVM testbench by calling utility methods in the virtual
 sequence.</p></li>
 </ul>
 </section>
+<section id="uvm-sequence-implemented-in-python">
+<h3>UVM Sequence Implemented in Python<a class="headerlink" href="#uvm-sequence-implemented-in-python" title="Permalink to this headline"></a></h3>
+<img alt="_images/usecase_sv_seq_python_impl.png" src="_images/usecase_sv_seq_python_impl.png" />
+<p>This usecase is somewhat the inverse of the previous usecase.
+In the previous example, the Python testbench created a sequence
+and executed it in the UVM testbench. In this example, the
+UVM testbench creates a sequence that is implemented in Python.</p>
+<p>The key steps in this example are:
+- The UVM testbench creates a SystemVerilog sequence class
+that extends from a tblink-rpc implementation class
+- When the sequence is run, it starts an embedded Python
+interpreter and runs the specified</p>
+</section>
 <section id="systemverilog-co-simulation-with-c-c-software-behavior">
 <h3>SystemVerilog Co-Simulation with C/C++ Software Behavior<a class="headerlink" href="#systemverilog-co-simulation-with-c-c-software-behavior" title="Permalink to this headline"></a></h3>
 <img alt="_images/usecase_zephyr_integration.png" src="_images/usecase_zephyr_integration.png" />
@@ -348,7 +364,7 @@ to be reused from verification to validation.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="interaction_protocol.html" class="btn btn-neutral float-right" title="Interaction Protocol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

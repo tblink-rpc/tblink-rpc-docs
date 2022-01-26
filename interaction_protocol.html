@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interaction Protocol &mdash; TbLink RPC  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> TbLink RPC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Interaction Protocol</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#initialization-protocol">Initialization Protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">Init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build">Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connect">Connect</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TbLink RPC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Interaction Protocol</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/interaction_protocol.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="interaction-protocol">
+<h1>Interaction Protocol<a class="headerlink" href="#interaction-protocol" title="Permalink to this headline"></a></h1>
+<p>Ideally, understanding the way in which different parts of the TbLink-RPC
+system interact is only necessary for developers and integrators. As a
+user, having a deeper understanding of “what goes on under the hood”
+is primarily useful when debugging an issue. That said, the more you know…</p>
+<p>In some cases, the interaction protocol is literally implemented by sending
+RPC messages over sockets or through FIFOs. In other cases, the interaction
+protocol is implemented by a series of method calls. If you’re interested
+in the details of one of the transport protocols, please see:
+- TBD (1)
+- TBD (2)</p>
+<section id="initialization-protocol">
+<h2>Initialization Protocol<a class="headerlink" href="#initialization-protocol" title="Permalink to this headline"></a></h2>
+<p>The initialization protocol comes into play when a connection between
+two endpoints is initiated. At each step in the protocol, different
+information is assumed to be available and/or consistent at each
+of the two endpoints.</p>
+<div><img height="586" src="_images/seqdiag-b8bdec084c510dc046a7e47c3995561297312c55.png" width="448" /></div><p>During initialization, the two endpoints exchange and compare information
+to ensure that the two have a consistent view of interface types and instances.
+Endpoints have a peer relationship. One outcome is that the order in which
+each message type is exchanged is not significant. For example, the
+TimebaseClient could have been first to send the Init message.</p>
+<p>An endpoint provides methods both to signal that a phase is complete
+(eg build-complete) and to confirm that the peer endpoint has also
+signaled phase completion. A phase is complete from the perspective
+of an endpoint once it has signaled its completion of the phase and
+has confirmed that its peer has also completed the phase.</p>
+<p>At the conclusion of each initialization phase, endpoints have
+access to specific information. A description of each phase and
+the information available at its completion is below.</p>
+<section id="init">
+<h3>Init<a class="headerlink" href="#init" title="Permalink to this headline"></a></h3>
+<p>On completion of the initialization phase, the TimebaseConsumer
+endpoint has access to the time-precision of the TimebaseProducer
+and has access to any arguments provided by the TimebaseProducer.</p>
+</section>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h3>
+</section>
+<section id="connect">
+<h3>Connect<a class="headerlink" href="#connect" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Matthew Ballance.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -43,6 +43,7 @@ extensions = [
     'sphinx_issues',
     'sphinxarg.ext',
     'sphinxcontrib.spelling',
+    'sphinxcontrib.seqdiag',
     'sphinxcontrib.openapi'
 ]
 

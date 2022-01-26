@@ -207,20 +207,19 @@ Current environment integrations include:
 - Python (Cython/C++ binding)
 - Gateware for Silicon targets (byte-oriented interface)
 
-- Core
-  - Event-driven and non-blocking
+Automation
+----------
 
-- Endpoint (API)
-- Endpoint Transport
-- Endpoint Launcher
+A key aspect of the TbLink-RPC approach is automation to generate
+boilerplate implementation code from 
 
 Use-Cases / Application Examples
 ================================
 
 Here are a few examples of TbLink RPC applications.
 
-Python-Driven UVM Sequence
---------------------------
+Python-Driven UVM Sequence Execution
+------------------------------------
 
 .. image:: imgs/usecase_python_uvm_sequence.png
 
@@ -260,6 +259,21 @@ The key steps in this example are as follows:
   UVM testbench by calling utility methods in the virtual
   sequence.
 
+UVM Sequence Implemented in Python
+----------------------------------
+
+.. image:: imgs/usecase_sv_seq_python_impl.png
+
+This usecase is somewhat the inverse of the previous usecase.
+In the previous example, the Python testbench created a sequence
+and executed it in the UVM testbench. In this example, the
+UVM testbench creates a sequence that is implemented in Python.
+
+The key steps in this example are:
+- The UVM testbench creates a SystemVerilog sequence class
+that extends from a tblink-rpc implementation class
+- When the sequence is run, it starts an embedded Python
+interpreter and runs the specified 
 
 
 SystemVerilog Co-Simulation with C/C++ Software Behavior

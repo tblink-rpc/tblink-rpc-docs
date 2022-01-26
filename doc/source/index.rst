@@ -24,6 +24,7 @@ environment.
 
    overview   
    architecture
+   interaction_protocol
    reference
 
 
